@@ -19,7 +19,7 @@ class UserService {
     const res = await User.findOne({
       attributes: ['id', 'user_name', 'password', 'is_admin'],
       where: whereOpt,
-      raw: true
+      // raw: true
     })
     
     return res ? res : null

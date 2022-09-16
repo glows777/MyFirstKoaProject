@@ -1,6 +1,6 @@
 import { Context, Next } from "koa";
 import userService from "../service/user.service";
-import {userRegisterError} from '../common/error.type'
+import { userRegisterError } from "../common/error.type";
 
 class UserController {
   public async register(ctx: Context, next: Next) {
@@ -21,11 +21,12 @@ class UserController {
       };
     } catch (err) {
       console.error(err, "注册出错");
-      ctx.app.emit('error', userRegisterError, ctx)
+      ctx.app.emit("error", userRegisterError, ctx);
     }
   }
   public async login(ctx: Context) {
-    ctx.body = "用户登录成功";
+    const { user_name } = ctx.request.body;
+    ctx.body = `欢迎回来，${user_name}`;
   }
 }
 

@@ -1,6 +1,6 @@
 import Router from "koa-router";
 import user from '../controller/user.controller'
-import { userValidator, verifyUser, encryptPassword } from '../middleware/user.middleware'
+import { userValidator, verifyUser, encryptPassword, verifyLogin } from '../middleware/user.middleware'
 const router = new Router({
     prefix: '/users' // 配置前缀
 });
@@ -12,6 +12,6 @@ const router = new Router({
 
 
 router.post('/register', userValidator, verifyUser, encryptPassword, user.register)
-router.post('/login', user.login)
+router.post('/login', userValidator, verifyLogin, user.login)
 
 export default router
