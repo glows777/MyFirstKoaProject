@@ -10,6 +10,7 @@ const config = {
     MYSQL_USER: process.env.MYSQL_USER || 'root',
     MYSQL_PWD: process.env.MYSQL_PWD || '676727',
     MYSQL_DB: process.env.MYSQL_DB || 'first_node_project',
+    JWT_SECRET: process.env.JWT_SECRET || 'glows777'
 }
 
 export default config;

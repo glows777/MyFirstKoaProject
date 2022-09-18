@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-import { Context, Next } from "koa";
 
 import userService from "../service/user.service";
 import {
@@ -10,8 +9,9 @@ import {
   userWrongPassword,
   userLoginError
 } from "../common/error.type";
+import { MiddlewareFunc } from "../global";
 
-type UserMiddlewareFunc = (ctx: Context, next: Next) => any;
+// type MiddlewareFunc = (ctx: Context, next: Next) => any;
 
 /**
  * @author glows777
@@ -20,7 +20,7 @@ type UserMiddlewareFunc = (ctx: Context, next: Next) => any;
  * @param next
  * @returns
  */
-export const userValidator: UserMiddlewareFunc = async (ctx, next) => {
+export const userValidator: MiddlewareFunc = async (ctx, next) => {
   const { user_name, password } = ctx.request.body;
   if (!user_name || !password) {
     console.error("用户名或密码为空", ctx.request.body);
@@ -37,7 +37,7 @@ export const userValidator: UserMiddlewareFunc = async (ctx, next) => {
  * @param next Next
  * @returns
  */
-export const verifyUser: UserMiddlewareFunc = async (ctx, next) => {
+export const verifyUser: MiddlewareFunc = async (ctx, next) => {
   const { user_name, password } = ctx.request.body;
   try {
     const res = await userService.getUserInfo({ user_name });
@@ -59,7 +59,7 @@ export const verifyUser: UserMiddlewareFunc = async (ctx, next) => {
  * @param ctx Context
  * @param next Next
  */
-export const encryptPassword: UserMiddlewareFunc = async (ctx, next) => {
+export const encryptPassword: MiddlewareFunc = async (ctx, next) => {
   const { password } = ctx.request.body;
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
@@ -74,7 +74,7 @@ export const encryptPassword: UserMiddlewareFunc = async (ctx, next) => {
  * @param next 
  * @returns 
  */
-export const verifyLogin: UserMiddlewareFunc = async (ctx, next) => {
+export const verifyLogin: MiddlewareFunc = async (ctx, next) => {
   const { user_name, password } = ctx.request.body;
   try {
     const res = await userService.getUserInfo({ user_name });

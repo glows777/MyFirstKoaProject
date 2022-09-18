@@ -1,3 +1,5 @@
+import { ResponseBody } from "../global";
+
 const userFormateError: ResponseBody = {
   code: 10001,
   message: "用户名或密码为空",
@@ -32,4 +34,14 @@ const userLoginError: ResponseBody = {
   message: "登录错误",
   data: {}
 }
-export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError };
+const tokenExpiredError: ResponseBody = {
+  code: 10101,
+  message: "token过期",
+  data: {}
+}
+const jsonWebTokenError: ResponseBody = {
+  code: 10102,
+  message: "token无效",
+  data: {}
+}
+export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError, tokenExpiredError, jsonWebTokenError };

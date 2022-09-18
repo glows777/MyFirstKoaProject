@@ -1,4 +1,5 @@
 import {Context} from 'koa'
+import { ResponseBody } from '../global'
 
 export default (error: ResponseBody, ctx: Context) => {
     let status = 500

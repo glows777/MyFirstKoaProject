@@ -1,6 +1,9 @@
 import { Context, Next } from "koa";
+import jwt from "jsonwebtoken";
+
 import userService from "../service/user.service";
 import { userRegisterError } from "../common/error.type";
+import config from "../config/config.default";
 
 class UserController {
   public async register(ctx: Context, next: Next) {
@@ -26,7 +29,20 @@ class UserController {
   }
   public async login(ctx: Context) {
     const { user_name } = ctx.request.body;
-    ctx.body = `欢迎回来，${user_name}`;
+    try {
+      const res = await userService.getUserInfo({ user_name });
+      const { password, ...payload } = res!;
+      // const token = jwt.sign(payload, config.JWT_SECRET, { expiresIn: "1d" });
+      ctx.body = {
+        code: 0,
+        message: `欢迎回来，${user_name}`,
+        data: {
+          token: jwt.sign(payload, config.JWT_SECRET, { expiresIn: "1d" }), 
+        },
+      };
+    } catch (error) {
+      console.error(error, "登录出错");
+    }
   }
 }
 
