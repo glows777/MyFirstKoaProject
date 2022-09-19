@@ -34,6 +34,11 @@ const userLoginError: ResponseBody = {
   message: "登录错误",
   data: {}
 }
+const userChangePasswordError: ResponseBody = {
+  code: 10007,
+  message: '修改密码失败',
+  data: {}
+}
 const tokenExpiredError: ResponseBody = {
   code: 10101,
   message: "token过期",
@@ -44,4 +49,4 @@ const jsonWebTokenError: ResponseBody = {
   message: "token无效",
   data: {}
 }
-export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError, tokenExpiredError, jsonWebTokenError };
+export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError, tokenExpiredError, jsonWebTokenError,userChangePasswordError };

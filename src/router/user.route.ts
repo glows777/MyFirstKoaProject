@@ -25,10 +25,6 @@ router.post(
   user.register
 );
 router.post("/login", userValidator, verifyLogin, user.login);
-router.patch("/", auth, (ctx: Context, next: Next) => {
-  console.log(ctx.state.user.dataValues);
-  // todo 验证密码合法性，操作数据库修改密码
-  ctx.body = "修改成功"
-});
+router.patch("/", auth, encryptPassword, user.changePassword);
 
 export default router;

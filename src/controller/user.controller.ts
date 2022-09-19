@@ -2,7 +2,7 @@ import { Context, Next } from "koa";
 import jwt from "jsonwebtoken";
 
 import userService from "../service/user.service";
-import { userRegisterError } from "../common/error.type";
+import { userRegisterError, userChangePasswordError } from "../common/error.type";
 import config from "../config/config.default";
 
 class UserController {
@@ -42,6 +42,25 @@ class UserController {
       };
     } catch (error) {
       console.error(error, "登录出错");
+    }
+  }
+  public async changePassword(ctx: Context, next: Next)   {
+    const id = ctx.state.user.dataValues.id
+    const password = ctx.request.body.password
+    try {
+      const res = await userService.updateById({id, password})
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: "修改成功",
+          data: {
+            user_name: ctx.state.user.dataValues.user_name
+          }
+        }
+      }
+    } catch (error) {
+      console.error("修改密码错误", error)
+      ctx.app.emit('error', userChangePasswordError, ctx)
     }
   }
 }
