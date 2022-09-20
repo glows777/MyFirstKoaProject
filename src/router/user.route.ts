@@ -28,3 +28,8 @@ router.post("/login", userValidator, verifyLogin, user.login);
 router.patch("/", auth, encryptPassword, user.changePassword);
 
 export default router;
+
+// const aaa = {
+//   b: 1
+// }
+// export default aaa

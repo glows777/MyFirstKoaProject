@@ -3,7 +3,7 @@ import { MiddlewareFunc } from "../global";
 import config from '../config/config.default'
 import {jsonWebTokenError, tokenExpiredError} from '../common/error.type'
 
-const auth: MiddlewareFunc = async (ctx, next) => {
+export const auth: MiddlewareFunc = async (ctx, next) => {
     const { authorization } = ctx.request.header;
     const token = authorization?.replace('Bearer ', '') || '';
     // console.log(token);
@@ -25,4 +25,3 @@ const auth: MiddlewareFunc = async (ctx, next) => {
     }
     await next()
 };
-export { auth };
