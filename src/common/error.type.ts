@@ -49,4 +49,9 @@ const jsonWebTokenError: ResponseBody = {
   message: "token无效",
   data: {}
 }
-export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError, tokenExpiredError, jsonWebTokenError,userChangePasswordError };
+const hadNotAdminPermission: ResponseBody = {
+  code: 10103,
+  message: '无管理员权限',
+  data: {}
+}
+export { userFormateError, userAlreadyExited, userRegisterError, userNotExists, userWrongPassword, userLoginError, tokenExpiredError, jsonWebTokenError,userChangePasswordError, hadNotAdminPermission };
