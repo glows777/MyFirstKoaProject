@@ -9,8 +9,10 @@ const app: Koa = new Koa();
 app.use(koaBody({
     multipart: true,
     formidable: {
-        uploadDir: path.join(__dirname, '../upload'),
-        keepExtensions: true
+        // todo 自己实现一个路径，不在这里指定
+        // uploadDir: path.join(__dirname, '../upload'), 
+        keepExtensions: true,
+        maxFileSize: 200 * 1024 * 1024,
     }
 }));
 
@@ -22,4 +24,3 @@ app.on("error", errorHandler)
 export default app;
 
 // ! 用这个filepath，而不是path
-// todo 找一个中间件校验参数
