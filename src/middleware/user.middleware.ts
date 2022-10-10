@@ -1,15 +1,15 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs'
 
-import userService from "../service/user.service";
+import userService from '../service/user.service'
 import {
-  userFormateError,
   userAlreadyExited,
-  userRegisterError,
+  userFormateError,
+  userLoginError,
   userNotExists,
+  userRegisterError,
   userWrongPassword,
-  userLoginError
-} from "../common/error.type";
-import { MiddlewareFunc } from "../global";
+} from '../common/error.type'
+import type { MiddlewareFunc } from '../global'
 
 // type MiddlewareFunc = (ctx: Context, next: Next) => any;
 
@@ -21,14 +21,14 @@ import { MiddlewareFunc } from "../global";
  * @returns
  */
 export const userValidator: MiddlewareFunc = async (ctx, next) => {
-  const { user_name, password } = ctx.request.body;
+  const { user_name, password } = ctx.request.body
   if (!user_name || !password) {
-    console.error("用户名或密码为空", ctx.request.body);
-    ctx.app.emit("error", userFormateError, ctx);
-    return;
+    console.error('用户名或密码为空', ctx.request.body)
+    ctx.app.emit('error', userFormateError, ctx)
+    return
   }
-  await next();
-};
+  await next()
+}
 
 /**
  * @author glows777
@@ -38,20 +38,21 @@ export const userValidator: MiddlewareFunc = async (ctx, next) => {
  * @returns
  */
 export const verifyUser: MiddlewareFunc = async (ctx, next) => {
-  const { user_name, password } = ctx.request.body;
+  const { user_name } = ctx.request.body
   try {
-    const res = await userService.getUserInfo({ user_name });
+    const res = await userService.getUserInfo({ user_name })
     if (res) {
-      ctx.app.emit("error", userAlreadyExited, ctx);
-      return;
+      ctx.app.emit('error', userAlreadyExited, ctx)
+      return
     }
-  } catch (err) {
-    ctx.app.emit("error", userRegisterError, ctx);
-    console.error("注册出错", err);
-    return;
   }
-  await next();
-};
+  catch (err) {
+    ctx.app.emit('error', userRegisterError, ctx)
+    console.error('注册出错', err)
+    return
+  }
+  await next()
+}
 
 /**
  * @author glows777
@@ -60,39 +61,40 @@ export const verifyUser: MiddlewareFunc = async (ctx, next) => {
  * @param next Next
  */
 export const encryptPassword: MiddlewareFunc = async (ctx, next) => {
-  const { password } = ctx.request.body;
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-  ctx.request.body.password = hash;
-  await next();
-};
+  const { password } = ctx.request.body
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(password, salt)
+  ctx.request.body.password = hash
+  await next()
+}
 
 /**
  * @author glows777
- * @desc 验证登录请求的合法性以及用户是否存在 
- * @param ctx 
- * @param next 
- * @returns 
+ * @desc 验证登录请求的合法性以及用户是否存在
+ * @param ctx
+ * @param next
+ * @returns
  */
 export const verifyLogin: MiddlewareFunc = async (ctx, next) => {
-  const { user_name, password } = ctx.request.body;
+  const { user_name, password } = ctx.request.body
   try {
-    const res = await userService.getUserInfo({ user_name });
+    const res = await userService.getUserInfo({ user_name })
     if (!res) {
-      ctx.app.emit("error", userNotExists, ctx);
-      console.error("用户名不存在", { user_name });
-      return;
+      ctx.app.emit('error', userNotExists, ctx)
+      console.error('用户名不存在', { user_name })
+      return
     }
     // console.log(res.getDataValue("password"));
-    
+
     if (!bcrypt.compareSync(password, res.getDataValue('password'))) {
       ctx.app.emit('error', userWrongPassword, ctx)
       return
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
-    ctx.request.body("error", userLoginError, ctx)
+    ctx.request.body('error', userLoginError, ctx)
     return
   }
   await next()
-};
+}
