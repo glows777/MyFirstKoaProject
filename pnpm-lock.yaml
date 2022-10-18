@@ -8,9 +8,11 @@ specifiers:
   '@types/koa-router': ^7.4.4
   '@types/koa-static': ^4.0.2
   '@types/node': ^18.7.6
+  '@types/validator': ^13.7.8
   bcryptjs: ^2.4.3
   dotenv: ^16.0.1
   eslint: ^8.25.0
+  joi: ^17.6.3
   jsonwebtoken: ^8.5.1
   koa: ^2.13.4
   koa-body: ^5.0.0
@@ -25,6 +27,7 @@ specifiers:
 dependencies:
   bcryptjs: 2.4.3
   dotenv: 16.0.1
+  joi: 17.6.3
   jsonwebtoken: 8.5.1
   koa: 2.13.4
   koa-body: 5.0.0
@@ -41,6 +44,7 @@ devDependencies:
   '@types/koa-router': 7.4.4
   '@types/koa-static': 4.0.2
   '@types/node': 18.7.6
+  '@types/validator': 13.7.8
   eslint: 8.25.0
   nodemon: 2.0.19
   ts-node: 10.9.1_z5yog5l5yqinvqran22gqy2vdi
@@ -178,6 +182,16 @@ packages:
       - supports-color
     dev: true
 
+  /@hapi/hoek/9.3.0:
+    resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
+    dev: false
+
+  /@hapi/topo/5.1.0:
+    resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
+    dependencies:
+      '@hapi/hoek': 9.3.0
+    dev: false
+
   /@humanwhocodes/config-array/0.10.7:
     resolution: {integrity: sha512-MDl6D6sBsaV452/QSdX+4CXIjZhIcI0PELsxUjk4U828yd58vk3bTIvk/6w5FY+4hIy9sLW0sfrV7K7Kc++j/w==}
     engines: {node: '>=10.10.0'}
@@ -234,6 +248,20 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
     dev: true
+
+  /@sideway/address/4.1.4:
+    resolution: {integrity: sha512-7vwq+rOHVWjyXxVlR76Agnvhy8I9rpzjosTESvmhNeXOXdZZB15Fl+TI9x1SiHZH5Jv2wTGduSxFDIaq0m3DUw==}
+    dependencies:
+      '@hapi/hoek': 9.3.0
+    dev: false
+
+  /@sideway/formula/3.0.0:
+    resolution: {integrity: sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg==}
+    dev: false
+
+  /@sideway/pinpoint/2.0.0:
+    resolution: {integrity: sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==}
+    dev: false
 
   /@tsconfig/node10/1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -420,9 +448,8 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
 
-  /@types/validator/13.7.6:
-    resolution: {integrity: sha512-uBsnWETsUagQ0n6G2wcXNIufpTNJir0zqzG4p62fhnwzs48d/iuOWEEo0d3iUxN7D+9R/8CSvWGKS+KmaD0mWA==}
-    dev: false
+  /@types/validator/13.7.8:
+    resolution: {integrity: sha512-HKayOBe2ThTcQykiycCQYf70Fvo0WaJEJdxxNjvX3D/mnC0IUAhMe6wsIb1wwthmjiqBAR3qGkEzHYx74MS2yw==}
 
   /@typescript-eslint/eslint-plugin/5.39.0_23z4ljmzfershnk3fir43q6pzi:
     resolution: {integrity: sha512-xVfKOkBm5iWMNGKQ2fwX5GVgBuHmZBO1tCRwXmY5oAIsPscfwm2UADDuNB8ZVYCtpQvJK4xpjrK7jEhcJ0zY9A==}
@@ -1948,6 +1975,16 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
+  /joi/17.6.3:
+    resolution: {integrity: sha512-YlQsIaS9MHYekzf1Qe11LjTkNzx9qhYluK3172z38RxYoAUf82XMX1p1DG1H4Wtk2ED/vPdSn9OggqtDu+aTow==}
+    dependencies:
+      '@hapi/hoek': 9.3.0
+      '@hapi/topo': 5.1.0
+      '@sideway/address': 4.1.4
+      '@sideway/formula': 3.0.0
+      '@sideway/pinpoint': 2.0.0
+    dev: false
+
   /js-sdsl/4.1.5:
     resolution: {integrity: sha512-08bOAKweV2NUC1wqTtf3qZlnpOX/R2DU9ikpjOHs0H+ibQv3zpncVQg6um4uYtRtrwIX8M4Nh3ytK4HGlYAq7Q==}
     dev: true
@@ -2742,7 +2779,7 @@ packages:
         optional: true
     dependencies:
       '@types/debug': 4.1.7
-      '@types/validator': 13.7.6
+      '@types/validator': 13.7.8
       debug: 4.3.4
       dottie: 2.0.2
       inflection: 1.13.2

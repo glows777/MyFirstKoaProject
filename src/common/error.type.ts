@@ -1,3 +1,13 @@
+/*
+ * @Author: glows777 1914426389@qq.com
+ * @Date: 2022-10-10 21:12:59
+ * @LastEditors: glows777 1914426389@qq.com
+ * @LastEditTime: 2022-10-18 20:30:45
+ * @FilePath: \8\src\common\error.type.ts
+ * @Description: 统一错误处理类型
+ *
+ * Copyright (c) 2022 by glows777 1914426389@qq.com, All Rights Reserved.
+ */
 import type { ResponseBody } from '../global'
 
 const userFormateError: ResponseBody = {
@@ -60,6 +70,16 @@ const fileTypeError: ResponseBody = {
   message: '文件类型错误',
   data: {},
 }
+const goodsUploadParamsError: ResponseBody = {
+  code: 10102,
+  message: '商品参数错误',
+  data: {},
+}
+const goodsUploadError: ResponseBody = {
+  code: 10103,
+  message: '商品上传出错',
+  data: {},
+}
 export {
   userFormateError,
   userAlreadyExited,
@@ -72,4 +92,6 @@ export {
   userChangePasswordError,
   hadNotAdminPermission,
   fileTypeError,
+  goodsUploadParamsError,
+  goodsUploadError,
 }

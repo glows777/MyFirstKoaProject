@@ -1,3 +1,13 @@
+/*
+ * @Author: glows777 1914426389@qq.com
+ * @Date: 2022-10-10 21:12:59
+ * @LastEditors: glows777 1914426389@qq.com
+ * @LastEditTime: 2022-10-16 20:49:28
+ * @FilePath: \8\src\controller\user.controller.ts
+ * @Description:
+ *
+ * Copyright (c) 2022 by glows777 1914426389@qq.com, All Rights Reserved.
+ */
 import type { Context, Next } from 'koa'
 import jwt from 'jsonwebtoken'
 

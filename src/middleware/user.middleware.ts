@@ -70,7 +70,7 @@ export const encryptPassword: MiddlewareFunc = async (ctx, next) => {
 
 /**
  * @author glows777
- * @desc 验证登录请求的合法性以及用户是否存在
+ * @desc 验证当前登录用户是否存在
  * @param ctx
  * @param next
  * @returns

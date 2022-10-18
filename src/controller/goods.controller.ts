@@ -1,7 +1,19 @@
+/*
+ * @Author: glows777 1914426389@qq.com
+ * @Date: 2022-10-10 21:12:59
+ * @LastEditors: glows777 1914426389@qq.com
+ * @LastEditTime: 2022-10-18 20:45:32
+ * @FilePath: \8\src\controller\goods.controller.ts
+ * @Description: 商品模块controller层
+ *
+ * Copyright (c) 2022 by glows777 1914426389@qq.com, All Rights Reserved.
+ */
 import path from 'path'
 import fs from 'fs'
 import type { Context, Next } from 'koa'
-import { fileTypeError } from '../common/error.type'
+import { fileTypeError, goodsUploadError } from '../common/error.type'
+import goodsService from '../service/goods.service'
+
 const imageFileTypeError = Object.assign(fileTypeError, {
   data: { message: '图片类型应该是：[\'image/jpeg\', \'image/png\']' },
 })
@@ -10,6 +22,13 @@ const imageFileTypeError = Object.assign(fileTypeError, {
 
 // }
 class GoodsController {
+  /**
+   * @author: glows777
+   * @description: 上传商品图片
+   * @param {Context} ctx
+   * @param {Next} _next
+   * @return {*}
+   */
   public async upload(ctx: Context, _next: Next) {
     // console.log(ctx.request.files?.file);
     // todo 分为多张图片以及一张处理
@@ -33,9 +52,26 @@ class GoodsController {
           },
         }
       }
-      else {
-        return ctx.app.emit('error', {}, ctx)
+    }
+    else {
+      return ctx.app.emit('error', {}, ctx)
+    }
+  }
+
+  public async createGoods(ctx: Context) {
+    try {
+      const res = await goodsService.createGoods(ctx.request.body)
+      ctx.response.body = {
+        code: 0,
+        message: '创建成功',
+        data: {
+          goods_name: res.goods_name,
+        },
       }
+    }
+    catch (error) {
+      console.error('创建商品错误： ', error)
+      ctx.app.emit('error', goodsUploadError, ctx)
     }
   }
 }
